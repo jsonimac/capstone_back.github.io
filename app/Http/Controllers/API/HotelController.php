@@ -46,4 +46,43 @@ class HotelController extends Controller
             'hotel' => $hotel
         ]);
     }
+    public function update(Request $request, $id){
+        
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|max:191|unique:hotels,name',
+            'address'=>'required|max:191',
+            'contact'=>'required|max:16',
+            'latitude'=>'required|max:9',
+            'longitude'=>'required|max:9',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages()
+            ]);
+        }else{
+            $hotel = Hotel::find($id);
+            if($hotel){
+                $hotel->name = $request->input('name');
+                $hotel->address = $request->input('address');
+                $hotel->contact = $request->input('contact');
+                $hotel->latitude = $request->input('latitude');
+                $hotel->longitude = $request->input('longitude');
+                $hotel->description = $request->input('description');
+                $hotel->save();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Updated Successfully'
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'No ID Found'
+                ]);
+            }
+            
+
+        }
+    }
+    
 }
