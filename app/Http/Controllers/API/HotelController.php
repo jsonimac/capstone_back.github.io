@@ -13,6 +13,7 @@ class HotelController extends Controller
 
         $validator = Validator::make($request->all(),[
             'hotel'=>'required|max:191|unique:hotels,name',
+            'image'=> 'required|image|mimes:jpg,jpeg,png|max:3000',
             'address'=>'required|max:191',
             'phone'=>'required|max:16',
             'lat'=>'required|max:9',
@@ -24,8 +25,16 @@ class HotelController extends Controller
                 'errors' => $validator->messages()
             ]);
         }else{
+            
             $hotel = new Hotel;
             $hotel->name = $request->input('hotel');
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $extention = $file->getClientOriginalExtension();
+                $fileName = time() .' . '.$extention;
+                $file->move('uploads/hotels/',$fileName);
+                $hotel->image = 'uploads/hotels/'.$fileName;
+            }
             $hotel->address = $request->input('address');
             $hotel->contact = $request->input('phone');
             $hotel->latitude = $request->input('lat');

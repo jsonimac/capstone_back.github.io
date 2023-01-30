@@ -11,6 +11,7 @@ class Hotel extends Model
     protected $table = 'hotels';
     protected $fillable = [
         'name',
+        'image',
         'address',
         'contact',
         'latitude',
