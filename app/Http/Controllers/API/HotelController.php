@@ -13,8 +13,7 @@ class HotelController extends Controller
 
         $validator = Validator::make($request->all(),[
             'hotel'=>'required|max:191|unique:hotels,name',
-            'image'=> 'required',
-            'image.*'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'address'=>'required|max:191',
             'phone'=>'required|max:16',
             'lat'=>'required|max:9',
