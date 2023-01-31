@@ -29,8 +29,8 @@ Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
     Route::get('view-hotel', [HotelController::class, 'index']);
     Route::put('update-hotel/{id}', [HotelController::class, 'update']);
     Route::delete('delete-hotel/{id}', [HotelController::class, 'destroy']);
-    
 });
+Route::get('reg-hotels', [HotelController::class, 'display']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout',[AuthController::class, 'logout']);   
 });

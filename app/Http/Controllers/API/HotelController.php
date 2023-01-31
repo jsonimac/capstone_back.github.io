@@ -57,6 +57,13 @@ class HotelController extends Controller
             'hotel' => $hotel
         ]);
     }
+    public function display(){
+        $hotel = Hotel::all();
+        return response()->json([
+            'status' => 200,
+            'hotel' => $hotel
+        ]);
+    }
     public function update(Request $request, $id){
         
         $validator = Validator::make($request->all(),[
